@@ -6,7 +6,7 @@
 	<meta name"viewport" contains="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-	<?php include 'header.php';?>
+	<?php include 'header.html';?>
 	<h1>test</h1>
 </body>
 </html>
