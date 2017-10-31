@@ -16,6 +16,8 @@
 </head>
 <body>
 	<?php include "header.html" ?>
-	<h1>test</h1>
+	<div class="blue-grey darken-4">
+		<h1 class="white-text">Lorem Ipsum</h1>
+	</div>
 </body>
 </html>
