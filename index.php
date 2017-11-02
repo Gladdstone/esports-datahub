@@ -16,6 +16,11 @@
 </head>
 <body>
 	<?php include "header.html" ?>
+	<div class="row">
+		<div class="input-field col s6">
+			<input placeholder="Search" id="input_search" type="text">
+		</div>	
+	</div>
 	<div class="blue-grey darken-4">
 		<h1 class="white-text">Lorem Ipsum</h1>
 	</div>
