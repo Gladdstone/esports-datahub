@@ -13,12 +13,16 @@
 	<!--Javascript and jQuery-->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/materialize.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
 </head>
 <body>
 	<?php include "header.html" ?>
 	<div class="row">
-		<div class="input-field col s6">
-			<input placeholder="Search" id="input_search" type="text">
+		<div class="col s12">
+			Search:
+			<div class="input-field inline">
+				<input placeholder="Input a player name" id="input_search" type="text">
+			</div>
 		</div>	
 	</div>
 	<div class="blue-grey darken-4">
