@@ -37,12 +37,25 @@ function dbConnect() {
 * Description: Performs database query based on passed parameters.
 *
 **/
-function playerSearch(obj) {
-	//var input = obj.value;
-
-	//const query = client.query(
-		//"SELECT first_name FROM players WHERE username=" + input + " GROUP BY first_name;"
-	//);
+function playerSearch() {
+	const { Client } = require("pg");
 	
-	alert("test");
+	const client = new Client({
+		user: "p32003g",
+		host: "reddwarf.cs.rit.edu",
+		database: "p32003g",
+		password: "Ohgh2lex4Techo5waC9a",
+		port: 5432,
+
+	})
+
+	client.connect()
+
+	client.query('SELECT * FROM PLAYERS', (err, res) => {
+		console.log(err, res)
+		client.end()
+	})
+	
+	alert("success");
+	
 }

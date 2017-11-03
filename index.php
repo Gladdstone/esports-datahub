@@ -15,18 +15,22 @@
 		
 	
 	<!--Javascript and jQuery-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/materialize.js"></script>
+	<!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+	<!--<script type="text/javascript" src="js/materialize.js"></script>-->
 	<!--<script type="text/javascript" src="js/scripts.js"></script>-->
 	<script>
-		function loadScript(url) {
+		/**function loadScript(url) {
 			var head = document.getElementsByTagName('head')[0];
 			var script = document.createElement('script');
 			script.type = 'text/javascript';
 			script.src = url;
 			head.appendChild(script);
 		}
-		loadScript("js/scripts.js");
+		loadScript("js/scripts.js");**/
+		
+		function playerSearch() {
+				alert("test");
+		}
 	</script>
 </head>
 <body>
@@ -36,7 +40,7 @@
 			Search:
 			<div class="input-field inline">
 				<input placeholder="Input a player name" id="input_search" type="text">
-				<input type="button" value="Search" onclick="playerSearch('input_search');">
+				<input type="button" value="Search" onclick="playerSearch();">
 			</div>
 		</div>	
 	</div>
