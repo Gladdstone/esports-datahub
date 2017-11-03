@@ -1,22 +1,23 @@
 //
 // GLOBAL VARIABLES
 //
-const client;
+/**
+var client;
 
 
 $(document).ready( function() {
-	dbConnect();	
+	dbConnect();
 })
 
 
-/**
+
 *
 * Name: dbConnect()
 * Param: None
 * Returns: void
 * Description: Connects to postgresql database at designated location
 *
-**/
+
 function dbConnect() {
 	const postgres = require("pg");
 	const connectionStr = process.enx.DATABASE_URL || "postgresql://reddwarf.cs.rit.edu:5432/p32003g";
@@ -26,7 +27,7 @@ function dbConnect() {
 	// const query = client.query("CREATE TABLE example(id PRIMARY KEY, text VARCHAR(40))");
 	// query.on("end", () => { client.end(); });
 }
-
+**/
 
 /**
 *
@@ -37,9 +38,11 @@ function dbConnect() {
 *
 **/
 function playerSearch(obj) {
-	var input = obj.value;
+	//var input = obj.value;
 
-	const query = client.query(
-		"SELECT first_name FROM players WHERE username=" + input + " GROUP BY first_name;"
-	);
+	//const query = client.query(
+		//"SELECT first_name FROM players WHERE username=" + input + " GROUP BY first_name;"
+	//);
+	
+	alert("test");
 }
