@@ -16,13 +16,10 @@ http.createServer(function (request, response) {
             console.log("Body: " + body);
         });
 		playerSearch(body);
-		sendFileContent(response, "index.php", "text/html");
+		sendFileContent(response, "results.php", "text/html");
     }
 	else {
-		fs.readFile("index.php", function(err, data){
-			response.writeHead(200, {"Content-Type": "text/html"});
-			sendFileContent(response, "index.php", "text/html");
-		});
+		sendFileContent(response, "index.php", "text/html");
 	}
 }).listen(8081);
 
