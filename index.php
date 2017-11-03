@@ -27,10 +27,6 @@
 			head.appendChild(script);
 		}
 		loadScript("js/scripts.js");**/
-		
-		function playerSearch() {
-				alert("test");
-		}
 	</script>
 </head>
 <body>
@@ -39,8 +35,10 @@
 		<div class="col s12">
 			Search:
 			<div class="input-field inline">
-				<input placeholder="Input a player name" id="input_search" type="text">
-				<input type="button" value="Search" onclick="playerSearch();">
+				<form method="post" action="/">
+					<input placeholder="Input a player name" id="input_search" type="text" name="search">
+					<input type="submit">
+				</form>
 			</div>
 		</div>	
 	</div>
