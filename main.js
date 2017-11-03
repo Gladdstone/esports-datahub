@@ -12,14 +12,12 @@ http.createServer(function (request, response) {
         request.on('end', function () {
             console.log("Body: " + body);
         });
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end('post received');
+		sendFileContent(response, "index.php", "text/html");
     }
 	else {
 		fs.readFile("index.php", function(err, data){
 			response.writeHead(200, {"Content-Type": "text/html"});
-			response.write(data);
-			response.end();
+			sendFileContent(response, "index.php", "text/html");
 		});
 	}
 }).listen(8081);
@@ -57,4 +55,13 @@ function playerSearch() {
 	
 	alert("success");
 	
+}
+
+
+function sendFileContent(response, fileName, contentType) {
+		fs.readFile(fileName, function(err, data) {
+			response.writeHead(200, {"Content-Type": contentType});
+			response.write(data);
+			response.end();
+		});
 }
