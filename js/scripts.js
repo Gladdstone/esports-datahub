@@ -19,7 +19,7 @@ $(document).ready( function() {
 **/
 function dbConnect() {
 	const postgres = require("pg");
-	const connectionStr = process.enx.DATABASE_URL || "postgres://localhost:5432/todo";
+	const connectionStr = process.enx.DATABASE_URL || "postgresql://reddwarf.cs.rit.edu:5432/p32003g";
 
 	client = new postgres.Client(connectionStr);
 	client.connect();
