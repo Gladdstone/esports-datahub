@@ -1,5 +1,6 @@
 var http = require("http");
 var fs = require("fs");
+//var pg = require("pg");
 
 http.createServer(function (request, response) {
 	if (request.method == 'POST') {
@@ -12,6 +13,7 @@ http.createServer(function (request, response) {
         request.on('end', function () {
             console.log("Body: " + body);
         });
+		playerSearch(body);
 		sendFileContent(response, "index.php", "text/html");
     }
 	else {
@@ -34,7 +36,7 @@ console.log('Server running at http://127.0.0.1:8081/');
 * Description: Performs database query based on passed parameters.
 *
 **/
-function playerSearch() {
+function playerSearch(name) {
 	const { Client } = require("pg");
 	
 	const client = new Client({
@@ -47,8 +49,13 @@ function playerSearch() {
 	})
 
 	client.connect()
+	
+	//const connectionString = "postgres://p32003g:Ohgh2lex4Techo5waC9a@reddwarf.cs.rit.edu:5432";
+	
+	//const client = new pg.Client(connectionString);
+	//client.connect();
 
-	client.query('SELECT * FROM PLAYERS', (err, res) => {
+	client.query("SELECT " + name + " FROM PLAYERS", (err, res) => {
 		console.log(err, res)
 		client.end()
 	})
@@ -58,10 +65,20 @@ function playerSearch() {
 }
 
 
+/**
+*
+* Name: sendFileContent
+* Param: 	response - response object
+* 			fileName - name of file to serve
+*			contentType - type of file being served
+* Returns: void
+* Description: Serves up webpage based on passed parameters
+*
+**/
 function sendFileContent(response, fileName, contentType) {
-		fs.readFile(fileName, function(err, data) {
-			response.writeHead(200, {"Content-Type": contentType});
-			response.write(data);
-			response.end();
-		});
+	fs.readFile(fileName, function(err, data) {
+		response.writeHead(200, {"Content-Type": contentType});
+		response.write(data);
+		response.end();
+	});
 }
