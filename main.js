@@ -1,6 +1,8 @@
+//
+// GLOBAL VARIABLES
+//
 var http = require("http");
 var fs = require("fs");
-//var pg = require("pg");
 
 http.createServer(function (request, response) {
 	if (request.method == 'POST') {
@@ -37,6 +39,7 @@ console.log('Server running at http://127.0.0.1:8081/');
 *
 **/
 function playerSearch(name) {
+	
 	const { Client } = require("pg");
 	
 	const client = new Client({
@@ -49,18 +52,11 @@ function playerSearch(name) {
 	})
 
 	client.connect()
-	
-	//const connectionString = "postgres://p32003g:Ohgh2lex4Techo5waC9a@reddwarf.cs.rit.edu:5432";
-	
-	//const client = new pg.Client(connectionString);
-	//client.connect();
 
 	client.query("SELECT " + name + " FROM PLAYERS", (err, res) => {
 		console.log(err, res)
 		client.end()
 	})
-	
-	alert("success");
 	
 }
 
@@ -76,9 +72,11 @@ function playerSearch(name) {
 *
 **/
 function sendFileContent(response, fileName, contentType) {
+	
 	fs.readFile(fileName, function(err, data) {
 		response.writeHead(200, {"Content-Type": contentType});
 		response.write(data);
 		response.end();
 	});
+	
 }
