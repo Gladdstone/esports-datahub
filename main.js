@@ -15,7 +15,9 @@ http.createServer(function (request, response) {
         request.on('end', function () {
             console.log("Body: " + body);
         });
+
 		playerSearch(body);
+
 		sendFileContent(response, "results.php", "text/html");
     }
 	else {
@@ -48,12 +50,21 @@ function playerSearch(name) {
 
 	})
 
-	client.connect()
+	client.connect();
 
-	client.query("SELECT " + name + " FROM PLAYERS", (err, res) => {
-		console.log(err, res)
-		client.end()
-	})
+	client.query("SET search_path TO public");
+	client.query("SELECT first_name, last_name, name FROM SUMMONER", (err, res) => {
+
+
+		if(err){
+			console.log(err);
+			console.log("Error");
+		}
+
+		console.log(res.rows);
+
+		client.end();
+	});
 	
 }
 
@@ -70,7 +81,7 @@ function playerSearch(name) {
 **/
 function sendFileContent(response, fileName, contentType) {
 	
-	fs.readFile(fileName, function(err, data) {
+	fs.readFile(fileName, function (err, data) {
 		response.writeHead(200, {"Content-Type": contentType});
 		response.write(data);
 		response.end();
