@@ -1,7 +1,10 @@
 // variable declarations
 var express = require("express"),
 	router = require("./app/routes.js"),
+	{Pool, Client} = require("pg"),
+	connectionString = "postgresql://user:database.server.com:1234/databasename"
 	app = express(),
+	connectionString = process.env.DATABASEURL || "",
 	port = 8080;
 
 // route app
