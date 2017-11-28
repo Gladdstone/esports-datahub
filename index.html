@@ -37,17 +37,29 @@
 
 	<main>
 		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-centered">
+					<h2>Search</h2>
+					<div id="custom-search-input">
+						<div class="input-group col-md-12">
+							<input type="text" class="form-control input-lg" placeholder="Summoner Name" />
+							<span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div class="container">
 			<div class="jumbotron text-center">
 				Home Page
 			</div>
 		</div>
 		<br/>
-		<div class="container">
-			<form action="http://127.0.0.1:8080/myaction" method="post">
-				<input type="text" name="test"/>
-				<input type="submit" name="submit"/>
-			</form>
-		</div>
 	</main>
 
 	<footer>

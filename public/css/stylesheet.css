@@ -8,6 +8,11 @@ header .navbar {
 	margin: 0;
 }
 
+.col-centered {
+	float: none;
+	margin: 0 auto;
+}
+
 .hero {
 	background-image: url(../images/esportsbanner.jpg);
 	background-repeat: no-repeat;
