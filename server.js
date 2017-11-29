@@ -1,17 +1,20 @@
 // variable declarations
-var express = require("express"),
-	router = require("./app/routes.js"),
-	client = require("./app/client.js"),
-	//{Pool, Client} = require("pg"),
-	// connectionString = "postgresql://user:database.server.com:1234/databasename"
-	app = express(),
-	// connectionString = process.env.DATABASEURL || "",
-	port = 8080;
+const express = require("express");
+const router = require("./app/routes.js");
+const pg = require("pg");
+const connectionString = "postgres://p32003g:Ohgh2lex4Techo5waC9a@reddwarf.cs.rit.edu@5432/p32003g"
+
+// Set port
+const port = 8080;
+
+// Set up express
+const app = express();
+
+// Set up pool
+const pool = new pg.Pool(connectionString);
 
 // route app
 app.use("/", router);
-
-// app.use("/", client);
 
 // set location of static files
 app.use(express.static(__dirname + "/public"));
@@ -20,3 +23,14 @@ app.use(express.static(__dirname + "/public"));
 app.listen(port, function() {
 	console.log("App started. Listening on port 8080");
 });
+
+// Connection using pool
+pool.connect(function(err, client, done) {
+	if(err) {
+		return console.error("Error fetching client from pool: \n", err);
+	}
+	console.log("Succesfully connected to reddwarf");
+});
+
+// Pool shutdown
+pool.end();
