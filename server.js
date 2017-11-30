@@ -34,19 +34,12 @@ app.listen(port, function() {
 
 app.post("/querySummoner", function(req, res) {
     console.log(req.body.summoner);
+    pool.connect(function(err, client, done) {
+    	if(err) {
+    		return console.error("Error fetching client from pool: \n", err);
+		}
+		console.log("Succesful connection");
+	})
+	pool.end();
     res.sendFile(path.join(__dirname, "/index.html"));
 });
-
-
-/**
-// Connection using pool
-pool.connect(function(err, client, done) {
-	if(err) {
-		return console.error("Error fetching client from pool: \n", err);
-	}
-	console.log("Succesfully connected to reddwarf");
-});
-
-// Pool shutdown
-pool.end();
- **/
