@@ -3,8 +3,7 @@ const express = require("express");
 const path = require("path");
 const router = require("./app/routes.js");
 const bodyParser = require("body-parser");
-const pg = require("pg");
-const connectionString = "postgres://p32003g:Ohgh2lex4Techo5waC9a@reddwarf.cs.rit.edu@5432/p32003g"
+const Pool = require("pg-pool");
 
 // Set port
 const port = 8080;
@@ -13,7 +12,16 @@ const port = 8080;
 const app = express();
 
 // Set up pool
-const pool = new pg.Pool(connectionString);
+const pool = new Pool({
+    user: "p32003g",
+    host: "reddwarf.cs.rit.edu",
+    database: "p32003g",
+    password: "Ohgh2lex4Techo5waC9a",
+    port: 5432,
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
+});
 
 // route app
 app.use("/", router);
@@ -38,8 +46,9 @@ app.post("/querySummoner", function(req, res) {
     	if(err) {
     		return console.error("Error fetching client from pool: \n", err);
 		}
-		console.log("Succesful connection");
+		console.log("Succesful connection\n");
 	})
 	pool.end();
+    console.log("Pool succesfully terminated\n");
     res.sendFile(path.join(__dirname, "/index.html"));
 });
