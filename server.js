@@ -1,6 +1,8 @@
 // variable declarations
 const express = require("express");
+const path = require("path");
 const router = require("./app/routes.js");
+const bodyParser = require("body-parser");
 const pg = require("pg");
 const connectionString = "postgres://p32003g:Ohgh2lex4Techo5waC9a@reddwarf.cs.rit.edu@5432/p32003g"
 
@@ -16,6 +18,12 @@ const pool = new pg.Pool(connectionString);
 // route app
 app.use("/", router);
 
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+
+app.use(bodyParser.json());
+
 // set location of static files
 app.use(express.static(__dirname + "/public"));
 
@@ -24,6 +32,13 @@ app.listen(port, function() {
 	console.log("App started. Listening on port 8080");
 });
 
+app.post("/querySummoner", function(req, res) {
+    console.log(req.body.summoner);
+    res.sendFile(path.join(__dirname, "/index.html"));
+});
+
+
+/**
 // Connection using pool
 pool.connect(function(err, client, done) {
 	if(err) {
@@ -34,3 +49,4 @@ pool.connect(function(err, client, done) {
 
 // Pool shutdown
 pool.end();
+ **/
