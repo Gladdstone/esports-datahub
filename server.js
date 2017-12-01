@@ -58,6 +58,7 @@ app.post("/querySummoner", function(req, res) {
             else {
                 //res.status(200).json({"Data":"No records found"});
                 summoner = "No records found";
+                res.sendFile(path.join(__dirname, "/no_result.html"))
             }
             res.writeHead(200, {"content-Type": "application/json"});
             res.end(JSON.stringify(summoner));
