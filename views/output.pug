@@ -1,0 +1,44 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title Esports Datahub
+    meta(name='description', content='')
+    meta(name='author', content='Joseph Farrell, Yuying Mao')
+    meta(name='keywords', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Roboto', rel='stylesheet')
+    link(rel='stylesheet', href='/css/stylesheet.css')
+    script(src='/js/scripts.js')
+  body
+    header
+      nav.navbar.navbar-inverse
+        a.navbar-brand(href='/')
+          strong Esports Datahub
+        ul.nav.navbar-nav
+          li
+            a(href='about.html') About
+          li
+            a(href='contact.html') Contact
+    section.hero
+      .hero-content
+        h2 Account ID
+        p #{account_id}
+        a.btn.btn-lg.btn-primary(href='#start_search') Search using Another Keyword
+        form(method='post', action='/returnHome')
+          button.btn.btn-lg.btn-primary(type='submit') Return Home
+    main
+      .container
+        .row
+          .col-md-6.col-centered
+            h2#start_search Search
+            #custom-search-input
+              form.querySummoner.input-group.col-md-12.querySummoner(method='post', action='/querySummoner')
+                input.form-control.input-lg.summoner(type='text', name='summoner', placeholder='Summoner Name')
+                span.input-group-btn
+                  button.btn.btn-info.btn-lg(type='submit')
+                    i.glyphicon.glyphicon-search
+      br
+    footer
+      | Awesome site. Copyright something.

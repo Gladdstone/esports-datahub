@@ -4,6 +4,7 @@ const path = require("path");
 const router = require("./app/routes.js");
 const bodyParser = require("body-parser");
 const Pool = require("pg-pool");
+const pug = require('pug');
 
 // Set port
 const port = 8080;
@@ -22,6 +23,8 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
 });
+
+app.set('view engine', 'pug')
 
 // route app
 app.use("/", router);
@@ -65,9 +68,14 @@ app.post("/querySummoner", function(req, res) {
                 res.sendFile(path.join(__dirname, "/no_result.html"))
                 return;
             }
+
+            res.render('output', {account_id: JSON.stringify(summoner[0].account_id) });
+
+            /*
             res.writeHead(200, {"content-Type": "application/json"});
             res.end(JSON.stringify(summoner));
             res.end();
+            */
         });
     });
     //res.sendFile(path.join(__dirname, "/index.html"));
