@@ -41,21 +41,28 @@ app.listen(port, function() {
 });
 
 app.post("/querySummoner", function(req, res) {
-    var summoner = req.body.summoner;
-    console.log(summoner);
+    var summoner = "";
     pool.connect(function(err, client, done) {
-    	if(err) {
-    		return console.error("Error fetching client from pool: \n", err);
-		}
-		console.log("Succesful connection\n");
-    	client.query("SELECT account_id FROM account_f WHERE username = '" + summoner + "'", function(err, result) {
-    	    if(err) {
-    	        return console.error("Error executing query: ", err.stack);
+        if(err) {
+            return console.error("Error fetching client from pool: \n", err);
+        }
+        client.query("SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "'", function(err, result) {
+            if(err) {
+                //res.status(500).json({"Error":err});
+                summoner = "Error";
             }
-            console.log(result.rows);
+            else if(result.rows.length) {
+                //res.status(200).json({"Data":result.rows});
+                summoner = result.rows;
+            }
+            else {
+                //res.status(200).json({"Data":"No records found"});
+                summoner = "No records found";
+            }
+            res.writeHead(200, {"content-Type": "application/json"});
+            res.end(JSON.stringify(summoner));
+            res.end();
         });
-	})
-	//pool.end();
-    //console.log("Pool succesfully terminated\n");
-    res.sendFile(path.join(__dirname, "/index.html"));
-});
+    });
+    //res.sendFile(path.join(__dirname, "/index.html"));
+})
