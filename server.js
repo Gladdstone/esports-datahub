@@ -46,8 +46,7 @@ app.post("/querySummoner", function(req, res) {
         if(err) {
             return console.error("Error fetching client from pool: \n", err);
         }
-        //"SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "'"
-        //AS match RIGHT JOIN player_stats_f ON player_stats_f.match_id = match.match_id
+        // account_id given the account username: "(SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "')"
         // player_stats_f given the account username: (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id)
         // match_id given the account username: (SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id)
         client.query("SELECT * FROM (SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id) AS d_match INNER JOIN (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id) AS player_stats ON player_stats.match_id = d_match.match_id", function(err, result) {
