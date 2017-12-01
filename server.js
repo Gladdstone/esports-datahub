@@ -63,6 +63,7 @@ app.post("/querySummoner", function(req, res) {
                 //res.status(200).json({"Data":"No records found"});
                 summoner = "No records found";
                 res.sendFile(path.join(__dirname, "/no_result.html"))
+                return;
             }
             res.writeHead(200, {"content-Type": "application/json"});
             res.end(JSON.stringify(summoner));
@@ -70,4 +71,8 @@ app.post("/querySummoner", function(req, res) {
         });
     });
     //res.sendFile(path.join(__dirname, "/index.html"));
-})
+});
+
+app.post("/returnHome", function(req, res) {
+    res.sendFile(path.join(__dirname, "/index.html"));
+});
