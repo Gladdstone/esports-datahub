@@ -41,14 +41,21 @@ app.listen(port, function() {
 });
 
 app.post("/querySummoner", function(req, res) {
-    console.log(req.body.summoner);
+    var summoner = req.body.summoner;
+    console.log(summoner);
     pool.connect(function(err, client, done) {
     	if(err) {
     		return console.error("Error fetching client from pool: \n", err);
 		}
 		console.log("Succesful connection\n");
+    	client.query("SELECT account_id FROM account_f WHERE username = '" + summoner + "'", function(err, result) {
+    	    if(err) {
+    	        return console.error("Error executing query: ", err.stack);
+            }
+            console.log(result.rows);
+        });
 	})
-	pool.end();
-    console.log("Pool succesfully terminated\n");
+	//pool.end();
+    //console.log("Pool succesfully terminated\n");
     res.sendFile(path.join(__dirname, "/index.html"));
 });
