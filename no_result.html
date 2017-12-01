@@ -27,12 +27,20 @@
 
 	<section class="hero">
 		<div class="hero-content">
-			<h2>Sorry</h2>
-            <p>We cannot find anything from our database depends on your input</p>
-            <a href="#start_search" class="btn btn-lg btn-primary">Search using Another Keyword</a>
-			<form method="post" action="/returnHome">
-				<button type="submit" class="btn btn-lg btn-primary">Return Home</button>
-			</form>
+			<h2>Sorry,</h2>
+            <p>We can't find anything in our database that matches your search</p>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 offset-md-4">
+						<a href="#start_search" class="btn btn-lg btn-primary pull-left">Search using Another Keyword</a>
+					</div>
+					<div class="col-md-6 offset-md-4">
+						<form method="post" action="/returnHome">
+							<button type="submit" class="btn btn-lg btn-primary pull-right">Return Home</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 
