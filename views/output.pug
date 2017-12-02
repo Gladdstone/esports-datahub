@@ -9,8 +9,8 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(href='https://fonts.googleapis.com/css?family=Roboto', rel='stylesheet')
-    link(rel='stylesheet', href='/css/stylesheet.css')
-    script(src='/js/scripts.js')
+    link(rel='stylesheet', href='public/css/stylesheet.css')
+    script(src='public/js/scripts.js')
   body
     header
       nav.navbar.navbar-inverse
@@ -21,20 +21,10 @@ html(lang='en')
             a(href='about.html') About
           li
             a(href='contact.html') Contact
-    section.hero
-      .hero-content
-        h2 #{account_username}
-        h2 Kills
-        p #{p_stats_o[0].kills}
-        h2 Win
-        p #{p_stats_o[0].win}
-        a.btn.btn-lg.btn-primary(href='#start_search') Search using Another Keyword
-        form(method='post', action='/returnHome')
-          button.btn.btn-lg.btn-primary(type='submit') Return Home
     main
       .container
         .row
-          .col-md-6.col-centered
+          .col-md-6
             h2#start_search Search
             #custom-search-input
               form.querySummoner.input-group.col-md-12.querySummoner(method='post', action='/querySummoner')
@@ -42,6 +32,37 @@ html(lang='en')
                 span.input-group-btn
                   button.btn.btn-info.btn-lg(type='submit')
                     i.glyphicon.glyphicon-search
+        br
+        .row
+          table.table
+            tbody
+              tr
+                th(scope='row') Summoner
+                td #{account_username}
+              tr
+                th(scope='row') Win
+                td #{p_stats_o[0].win}
+              tr
+                th(scope='row') Kills
+                td #{p_stats_o[0].kills}
+              tr
+                th(scope='row') Largest Killing Spree
+                td #{p_stats_o[0].largestkillingspree}
+              tr
+                th(scope='row') Deaths
+                td #{p_stats_o[0].deaths}
+              tr
+                th(scope='row') Physical Damage Dealt
+                td #{p_stats_o[0].physicaldamagedealt}
+              tr
+                th(scope='row') Magic Damage Dealt
+                td #{p_stats_o[0].magicdamagedealt}
+              tr
+                th(scope='row') Total Damage Dealt
+                td #{p_stats_o[0].totaldamagedealt}
+              tr
+                th(scope='row') Wards Placed
+                td #{p_stats_o[0].wardsplaced}
       br
     footer
       | Awesome site. Copyright something.
