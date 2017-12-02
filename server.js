@@ -43,6 +43,42 @@ app.listen(port, function() {
 	console.log("App started. Listening on port 8080");
 });
 
+app.post("/getSummonerWinRate", function(req, res) {
+    pool.connect(function(err,client,done) {
+        if (err) {
+            return console.error("Error retching client from pool: \n", err);
+        }
+        win_rate = "SELECT COUNT(win) FROM (SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id) WHERE win = true"
+        client.query(win_rate, function(err, result) {
+            if(err) {
+                //res.status(500).json({"Error":err});
+                rate = "Error";
+                console.error("Error querying: \n", err);
+            }
+            else if(result.rows.length) {
+                //res.status(200).json({"Data":result.rows});
+                rate = result.rows;
+            }
+            else {
+                //res.status(200).json({"Data":"No records found"});
+                rate = "No records found";
+                res.sendFile(path.join(__dirname, "/no_result.html"))
+                return;
+            }
+            // NVM to below but im gonna leave it here
+            // CAN SOMEONE PLEASE DO THIS IDK WHAT THE QUERY RETURNS
+            // I believe there is someway to do a COUNT on the sql query to avoid this all together
+            // for each match in match_ids
+                // total++;
+                // if match is a win, win++
+            // var rate = wins/total_m;
+            res.render('output', {rate: win_rate});
+
+
+        });
+    });
+});
+
 app.post("/showAllSummoners", function(req, res) {
     pool.connect(function(err, client, done) {
         if(err) {
