@@ -10,7 +10,7 @@ Joseph Farrell
 Yuying Mao
 	ER Model and UML Diagram Designed, Modified and Updated
 	Database Designed and Normalized
-	Documentations Writen and Requirements Checked
+	Documentations Written and Requirements Checked
 	UI Designed
 
 Connor York
