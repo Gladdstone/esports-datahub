@@ -19,4 +19,7 @@ Connor York
 	SQL Queries
 	API Work
 
-Brandon Nievers
+Brandon Nieves
+	Back-End Node Developer
+	Database Design and Creation
+	ER Model Designer
