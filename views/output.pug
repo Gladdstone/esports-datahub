@@ -23,8 +23,11 @@ html(lang='en')
             a(href='contact.html') Contact
     section.hero
       .hero-content
-        h2 Account ID
-        p #{account_id}
+        h2 #{account_username}
+        h2 Kills
+        p #{p_stats_o[0].kills}
+        h2 Win
+        p #{p_stats_o[0].win}
         a.btn.btn-lg.btn-primary(href='#start_search') Search using Another Keyword
         form(method='post', action='/returnHome')
           button.btn.btn-lg.btn-primary(type='submit') Return Home

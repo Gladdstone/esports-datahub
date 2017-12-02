@@ -50,26 +50,38 @@ app.post("/querySummoner", function(req, res) {
             return console.error("Error fetching client from pool: \n", err);
         }
         // account_id given the account username: "(SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "')"
+        account_id = "SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "'"
         // player_stats_f given the account username: (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id)
+        player_stats = "SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id"
         // match_id's given the account username: (SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id)
-        client.query("SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id", function(err, result) {
+        match_ids = "SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id"
+        // team_stats_f given the account username: (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN team_stats_f )
+        team_stats = "SELECT * FROM (" + match_ids + ") AS matches INNER JOIN team_stats_f ON matches.match_id = team_stats_f.match_id"
+        // account_ids given a match_id, currently: 0
+        accounts_f_match = "SELECT account_id FROM match_f INNER JOIN account_match_f ON account_match_f.match_id = 0 AND match_f.match_id = 0"
+        // account usernames given a match_id
+        account_user_match = "SELECT username FROM account_f INNER JOIN (" + accounts_f_match + ") AS ids ON account_f.account_id = ids.account_id"
+
+        client.query(player_stats, function(err, result) {
             if(err) {
                 //res.status(500).json({"Error":err});
-                summoner = "Error";
+                p_stats = "Error";
                 console.error("Error querying: \n", err);
             }
             else if(result.rows.length) {
                 //res.status(200).json({"Data":result.rows});
-                summoner = result.rows;
+                p_stats = result.rows;
             }
             else {
                 //res.status(200).json({"Data":"No records found"});
-                summoner = "No records found";
+                p_stats = "No records found";
                 res.sendFile(path.join(__dirname, "/no_result.html"))
                 return;
             }
 
-            res.render('output', {account_id: JSON.stringify(summoner[0].account_id) });
+            // p_stats is an array of the player's stats in his matches
+            // account_id: JSON.stringify(p_stats[0].account_id)
+            res.render('output', {account_username: req.body.summoner, account_id: JSON.stringify(p_stats[0].account_id), p_stats_o: p_stats });
 
             /*
             res.writeHead(200, {"content-Type": "application/json"});
