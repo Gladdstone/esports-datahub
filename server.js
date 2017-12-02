@@ -43,6 +43,44 @@ app.listen(port, function() {
 	console.log("App started. Listening on port 8080");
 });
 
+app.post("/showAllSummoners", function(req, res) {
+    pool.connect(function(err, client, done) {
+        if(err) {
+            return console.error("Error fetching client from pool: \n", err);
+        }
+        var all = "SELECT username FROM account_f";
+        client.query(all, function(err, result) {
+            if(err) {
+                //res.status(500).json({"Error":err});
+                p_stats = "Error";
+                console.error("Error querying: \n", err);
+            }
+            else if(result.rows.length) {
+                //res.status(200).json({"Data":result.rows});
+                p_stats = result.rows;
+            }
+            else {
+                //res.status(200).json({"Data":"No records found"});
+                p_stats = "No records found";
+                res.sendFile(path.join(__dirname, "/no_result.html"))
+                return;
+            }
+
+            // p_stats is an array of the player's stats in his matches
+            // account_id: JSON.stringify(p_stats[0].account_id)
+            res.render('output', {usernames: p_stats);
+
+            /*
+            res.writeHead(200, {"content-Type": "application/json"});
+            res.end(JSON.stringify(summoner));
+            res.end();
+            */
+        });
+    });
+    //res.sendFile(path.join(__dirname, "/index.html"));
+});
+
+
 app.post("/querySummoner", function(req, res) {
     var summoner = "";
     pool.connect(function(err, client, done) {
