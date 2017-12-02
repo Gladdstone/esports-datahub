@@ -54,6 +54,7 @@ app.post("/querySummoner", function(req, res) {
         // player_stats_f given the account username: (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id)
         player_stats = "SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id"
         // match_id's given the account username: (SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id)
+<<<<<<< HEAD
         match_ids = "SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id"
         // team_stats_f given the account username: (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN team_stats_f )
         team_stats = "SELECT * FROM (" + match_ids + ") AS matches INNER JOIN team_stats_f ON matches.match_id = team_stats_f.match_id"
@@ -66,19 +67,36 @@ app.post("/querySummoner", function(req, res) {
             if(err) {
                 //res.status(500).json({"Error":err});
                 p_stats = "Error";
+=======
+        client.query("SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id", function(err, result) {
+            // Error
+			if(err) {
+                summoner = "Error";
+>>>>>>> 7c3cf703138e9e861e56a0ade179be2f4eddf7dc
                 console.error("Error querying: \n", err);
             }
+			// Result
             else if(result.rows.length) {
+<<<<<<< HEAD
                 //res.status(200).json({"Data":result.rows});
                 p_stats = result.rows;
+=======
+                summoner = result.rows;
+>>>>>>> 7c3cf703138e9e861e56a0ade179be2f4eddf7dc
             }
+			// No result
             else {
+<<<<<<< HEAD
                 //res.status(200).json({"Data":"No records found"});
                 p_stats = "No records found";
+=======
+                summoner = "No records found";
+>>>>>>> 7c3cf703138e9e861e56a0ade179be2f4eddf7dc
                 res.sendFile(path.join(__dirname, "/no_result.html"))
                 return;
             }
 
+<<<<<<< HEAD
             // p_stats is an array of the player's stats in his matches
             // account_id: JSON.stringify(p_stats[0].account_id)
             res.render('output', {account_username: req.body.summoner, account_id: JSON.stringify(p_stats[0].account_id), p_stats_o: p_stats });
@@ -88,9 +106,12 @@ app.post("/querySummoner", function(req, res) {
             res.end(JSON.stringify(summoner));
             res.end();
             */
+=======
+			// Serve output
+            res.render('output', {account_id: JSON.stringify(summoner[0].account_id) });
+>>>>>>> 7c3cf703138e9e861e56a0ade179be2f4eddf7dc
         });
     });
-    //res.sendFile(path.join(__dirname, "/index.html"));
 });
 
 app.post("/returnHome", function(req, res) {

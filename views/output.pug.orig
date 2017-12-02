@@ -21,6 +21,7 @@ html(lang='en')
             a(href='about.html') About
           li
             a(href='contact.html') Contact
+<<<<<<< HEAD
     section.hero
       .hero-content
         h2 #{account_username}
@@ -31,6 +32,9 @@ html(lang='en')
         a.btn.btn-lg.btn-primary(href='#start_search') Search using Another Keyword
         form(method='post', action='/returnHome')
           button.btn.btn-lg.btn-primary(type='submit') Return Home
+=======
+    br
+>>>>>>> 7c3cf703138e9e861e56a0ade179be2f4eddf7dc
     main
       .container
         .row
