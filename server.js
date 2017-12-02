@@ -53,32 +53,26 @@ app.post("/querySummoner", function(req, res) {
         // player_stats_f given the account username: (SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id)
         // match_id's given the account username: (SELECT match_f.match_id FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN account_match_f ON d_account.account_id = account_match_f.account_id INNER JOIN match_f ON account_match_f.match_id = match_f.match_id)
         client.query("SELECT * FROM (SELECT account_id FROM account_f WHERE username = '" + req.body.summoner + "') AS d_account INNER JOIN player_stats_f ON d_account.account_id = player_stats_f.account_id", function(err, result) {
-            if(err) {
-                //res.status(500).json({"Error":err});
+            // Error
+			if(err) {
                 summoner = "Error";
                 console.error("Error querying: \n", err);
             }
+			// Result
             else if(result.rows.length) {
-                //res.status(200).json({"Data":result.rows});
                 summoner = result.rows;
             }
+			// No result
             else {
-                //res.status(200).json({"Data":"No records found"});
                 summoner = "No records found";
                 res.sendFile(path.join(__dirname, "/no_result.html"))
                 return;
             }
 
+			// Serve output
             res.render('output', {account_id: JSON.stringify(summoner[0].account_id) });
-
-            /*
-            res.writeHead(200, {"content-Type": "application/json"});
-            res.end(JSON.stringify(summoner));
-            res.end();
-            */
         });
     });
-    //res.sendFile(path.join(__dirname, "/index.html"));
 });
 
 app.post("/returnHome", function(req, res) {
