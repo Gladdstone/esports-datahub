@@ -68,7 +68,7 @@ app.post("/showAllSummoners", function(req, res) {
 
             // p_stats is an array of the player's stats in his matches
             // account_id: JSON.stringify(p_stats[0].account_id)
-            res.render('output', {usernames: p_stats);
+            res.render('output', {usernames: p_stats});
 
             /*
             res.writeHead(200, {"content-Type": "application/json"});
