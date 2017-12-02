@@ -1,0 +1,7 @@
+=====================
+CONTRIBUTIONS.TXT
+=====================
+
+Joseph Farrell - Front-End Node Developer
+	Build basic Node infrastructure
+	Designed and implemented front-end client interface
