@@ -54,3 +54,6 @@ Run server.js
 ## Contributors
 
 Joseph Farrell
+Yuying Mao
+Connor York
+Brandon Nievers
